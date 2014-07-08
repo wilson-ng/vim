@@ -46,6 +46,14 @@ Plugin 'evanmiller/nginx-vim-syntax'
 "---------------------
 Plugin 'lepture/vim-css'
 
+"twig
+"-----------------------
+Plugin 'evidens/vim-twig'
+
+"symfony
+"----------------------
+Plugin 'docteurklein/vim-symfony'
+
 call vundle#end()               "required
 filetype plugin indent on       "required
 
@@ -85,6 +93,16 @@ let g:user_emmet_leader_key='<C-A>'
 "---------------------------
 let mapleader=","
 let g:mapleader=","
+
+"overwrite symfony
+"----------------
+let g:symfony_enable_shell_mapping = 0 "disable the mapping of symfony console
+
+" Use your key instead of default key which is <C-F>
+map cf :execute ":!"g:symfony_enable_shell_cmd<CR>
+
+let g:symfony_app_console_caller= "php"
+let g:symfony_app_console_path= "app/console"
 
 "filetype plugin on  "enable file detection and load its plugin file
 "filetype indent on  "enable file detection and load its indent file
