@@ -44,7 +44,7 @@ Plugin 'evanmiller/nginx-vim-syntax'
 
 "css3 syntax highlight
 "---------------------
-Plugin 'lepture/vim-css'
+Plugin 'hail2u/vim-css3-syntax'
 
 "twig
 "-----------------------
@@ -68,7 +68,7 @@ endfunction
 "visual configuration(s)
 "-----------------------
 set t_Co=256                    "enable 256-color vim support
-colorscheme molokai256
+"colorscheme molokai256
 
 set laststatus=2                "show last status for vim-airline plugin
 set nowrap                      "disable text-wrapping
@@ -94,16 +94,6 @@ let g:user_emmet_leader_key='<C-A>'
 let mapleader=","
 let g:mapleader=","
 
-"overwrite symfony
-"----------------
-let g:symfony_enable_shell_mapping = 0 "disable the mapping of symfony console
-
-" Use your key instead of default key which is <C-F>
-map cf :execute ":!"g:symfony_enable_shell_cmd<CR>
-
-let g:symfony_app_console_caller= "php"
-let g:symfony_app_console_path= "app/console"
-
 "filetype plugin on  "enable file detection and load its plugin file
 "filetype indent on  "enable file detection and load its indent file
 
@@ -121,6 +111,10 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+"php autocomplete extended
+"=========================
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 "vim syntax-highlight
 "--------------------

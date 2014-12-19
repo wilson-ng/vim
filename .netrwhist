@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/wilson/Dropbox/ta-baru/sistem-admin'
+let g:netrw_dirhist_2='/home/wilson/.vim'
+let g:netrw_dirhist_3='/var/www/imsi/src/IMSI/MahasiswaBundle/Resources/views/Default'
+let g:netrw_dirhist_4='/var/www/mikroweb/src/Mikroskil/GlobalBundle/Controller'
+let g:netrw_dirhist_5='/var/www/mikroweb/src/Mikroskil/GlobalBundle/Entity'
+let g:netrw_dirhist_6='/var/www/mikroweb/src/Mikroskil/PMBPBundle'
+let g:netrw_dirhist_7='/var/www/imsi/src/IMSI/Main/GlobalBundle/Controller'
