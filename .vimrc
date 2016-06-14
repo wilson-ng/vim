@@ -12,10 +12,22 @@ call vundle#begin()
 "--------------
 Plugin 'gmarik/Vundle.vim'
 
+"indent Line
+"----------------
+Plugin 'Yggdroot/indentLine'
+
 "file browser
 "------------
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+
+"comment/uncomment
+"-----------------
+Plugin 'scrooloose/nerdcommenter'
+
+"Trailling whitespace
+"------------------
+Plugin 'ntpeters/vim-better-whitespace'
 
 "automatic closing bracket(s), parenthesis(es), quote(s)
 "-------------------------------------------------------
@@ -37,6 +49,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'joedicastro/vim-molokai256'
+Plugin 'nanotech/jellybeans.vim'
 
 "adding nginx syntax highlight
 "-----------------------------
@@ -54,6 +67,10 @@ Plugin 'evidens/vim-twig'
 "----------------------
 Plugin 'docteurklein/vim-symfony'
 
+"command-t
+"----------------------
+Plugin 'wincent/command-t'
+
 call vundle#end()               "required
 filetype plugin indent on       "required
 
@@ -69,6 +86,7 @@ endfunction
 "-----------------------
 set t_Co=256                    "enable 256-color vim support
 "colorscheme molokai256
+colorscheme base
 
 set laststatus=2                "show last status for vim-airline plugin
 set nowrap                      "disable text-wrapping
@@ -111,6 +129,7 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufWritePre * StripWhitespace
 
 "php autocomplete extended
 "=========================
@@ -129,7 +148,7 @@ set backup                              "set nobackup files
 set noswapfile                          "set no swap(*.~) file
 set history=1000                        "set larger undo/redo memory
 set undofile                            "set persistent history
-set undoreload=1000                     "save the whole buffers for undo when reloading      
+set undoreload=1000                     "save the whole buffers for undo when reloading
 set backupdir=$HOME/.vim/tmp/backup/    "set backup storage directory
 set undodir=$HOME/.vim/tmp/undo/        "set history storage directory
 
@@ -142,7 +161,7 @@ silent! call MakeDirIfNotExists(&undodir)
 "------------------------------
 set ignorecase  "searching with non case-sensitve approach
 set incsearch   "highlight matches while searching
-set smartcase   "search smarter way 
+set smartcase   "search smarter way
 
 "reload vimrc when its saved
 "---------------------------
