@@ -33,6 +33,10 @@ Plugin 'ntpeters/vim-better-whitespace'
 "-------------------------------------------------------
 Plugin 'Raimondi/delimitMate'
 
+"autocomplete youcompleteme
+"--------------------------
+Plugin 'Valloric/YouCompleteMe'
+
 "snipmate plugins
 "----------------
 Plugin 'MarcWeber/vim-addon-mw-utils'
