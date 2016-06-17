@@ -116,6 +116,11 @@ let g:user_emmet_leader_key='<C-A>'
 let mapleader=","
 let g:mapleader=","
 
+"re-map snippet key
+"-------------------
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
 "filetype plugin on  "enable file detection and load its plugin file
 "filetype indent on  "enable file detection and load its indent file
 
