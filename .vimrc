@@ -183,9 +183,9 @@ map tp  :tabp<CR>
 
 "copy/cut/paste into/from clipboard
 "----------------------------------
-map <leader>x "+x
-map <leader>y "+y
-map <leader>p "+p
+map <leader>x +x
+map <leader>y +y
+map <leader>p +p
 
 "moving windows cursor focus
 "---------------------------
@@ -223,3 +223,10 @@ if has("gui_running")
     set guitablabel=%M\ %t
     set guifont=Monaco\ 10
 endif
+
+"ruler 81
+"----------------------------
+let &colorcolumn=join(range(81,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80,".join(range(120,999),",")
+
