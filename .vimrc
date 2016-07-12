@@ -189,12 +189,8 @@ autocmd! BufWritePost ~/.vimrc source ~/.vimrc
 
 "key-map for tab(s) navigation
 "-----------------------------
-"map tn  :tabn<CR>
-"map tp  :tabp<CR>
-set hidden
-map tn :bnext<CR>
-map tp :bprev<CR>
-map bq :bp <BAR> bd #<CR>
+map tn  :tabn<CR>
+map tp  :tabp<CR>
 
 "copy/cut/paste into/from clipboard
 "----------------------------------
@@ -241,19 +237,13 @@ endif
 
 "ruler 81
 "----------------------------
-let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
 let &colorcolumn="80,".join(range(120,999),",")
 
-"vim-airline enable buffer tab
-"-----------------------------
-let g:airline#extensions#tabline#enabled=1
-
-"vim-airline enable powerline font
+"vim-airline setting
+"enable powerline font
 "---------------------------------
 let g:airline_powerline_fonts=1
-
-"vim-airline theme
+"theme setting
 "-----------------
 let g:airline_theme='base16'
 
