@@ -101,6 +101,12 @@ Plugin 'majutsushi/tagbar'
 call vundle#end()               "required
 filetype plugin indent on       "required
 
+"vim autostart
+"-------------
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+"autocmd BufEnter * nested :call tagbar#autoopen(1)
+"autocmd FileType php nested :TagbarOpen
+
 "function(s)
 "-----------
 function! MakeDirIfNotExists(path)
