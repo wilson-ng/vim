@@ -12,9 +12,9 @@ call vundle#begin()
 "--------------
 Plugin 'gmarik/Vundle.vim'
 
-"indent Line
-"----------------
-Plugin 'Yggdroot/indentLine'
+"php indent
+"-----------
+Plugin '2072/PHP-Indenting-for-VIm'
 
 "vim-airline
 "Lean & mean status/tabline for vim that's light as air.
@@ -90,6 +90,14 @@ Plugin 'wincent/command-t'
 "----------
 Plugin 'Chiel92/vim-autoformat'
 
+"PHP.vim
+"-------
+Plugin 'stanangeloff/php.vim'
+
+"Tagbar
+"--------
+Plugin 'majutsushi/tagbar'
+
 call vundle#end()               "required
 filetype plugin indent on       "required
 
@@ -100,6 +108,17 @@ function! MakeDirIfNotExists(path)
         call mkdir(expand(a:path), "p")
     endif
 endfunction
+
+function! PhpSyntaxOverride()
+    hi! def link phpDocTags  phpDefine
+    hi! def link phpDocParam phpType
+    :call tagbar#autoopen(0)
+endfunction
+
+augroup phpSyntaxOverride
+    autocmd!
+    autocmd FileType php call PhpSyntaxOverride()
+augroup END
 
 "visual configuration(s)
 "-----------------------
@@ -122,6 +141,10 @@ set wildignore+=*.luac
 set wildignore+=*.jar
 set wildignore+=*.pyc
 set wildignore+=*.stats
+
+"Tagbar setting
+"--------------
+nmap <F8> :TagbarToggle<CR>
 
 "re-map emmet-key
 "----------------
@@ -226,6 +249,7 @@ inoremap <right> <nop>
 "plugin(s) configuration(s)
 "--------------------------
 let NERDTreeIgnore=['\.o$', '\.pyc$']   "filter file(s) that shown at nerdtree
+let g:nerdtree_tabs_open_on_console_startup=1
 
 map <F3> :NERDTreeToggle<CR>
 
