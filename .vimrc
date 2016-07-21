@@ -36,6 +36,14 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "-----------------
 Plugin 'scrooloose/nerdcommenter'
 
+"multiple cursor
+"---------------
+Plugin 'terryma/vim-multiple-cursors'
+
+"surround
+"---------
+Plugin 'tpope/vim-surround'
+
 "Trailling whitespace
 "------------------
 Plugin 'ntpeters/vim-better-whitespace'
@@ -61,9 +69,6 @@ Plugin 'mattn/emmet-vim'
 
 "color scheme(s)
 "---------------
-Plugin 'flazz/vim-colorschemes'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'joedicastro/vim-molokai256'
 Plugin 'nanotech/jellybeans.vim'
 
 "adding nginx syntax highlight
@@ -128,9 +133,9 @@ augroup END
 
 "visual configuration(s)
 "-----------------------
+set background=dark
+colorscheme jellybeans
 set t_Co=256                    "enable 256-color vim support
-"colorscheme molokai256
-colorscheme base
 
 set laststatus=2                "show last status for vim-airline plugin
 set nowrap                      "disable text-wrapping
@@ -269,8 +274,13 @@ if has("gui_running")
     set guifont=Monaco\ 10
 endif
 
+"highlight search
+"--------------------
+noremap <F4> :set hlsearch! hlsearch?<CR>
+
 "ruler 81
 "----------------------------
+highlight ColorColumn ctermbg=gray ctermfg=black
 let &colorcolumn="80,".join(range(120,999),",")
 
 "vim-airline setting
@@ -279,5 +289,5 @@ let &colorcolumn="80,".join(range(120,999),",")
 let g:airline_powerline_fonts=1
 "theme setting
 "-----------------
-let g:airline_theme='base16'
+let g:airline_theme='jellybeans'
 
