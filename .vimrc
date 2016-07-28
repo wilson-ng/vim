@@ -101,14 +101,14 @@ Plugin 'stanangeloff/php.vim'
 
 "Tagbar
 "--------
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 
 call vundle#end()               "required
 filetype plugin indent on       "required
 
 "vim autostart
 "-------------
-autocmd VimEnter * nested :call tagbar#autoopen(1)
+"autocmd VimEnter * nested :call tagbar#autoopen(1)
 "autocmd BufEnter * nested :call tagbar#autoopen(1)
 "autocmd FileType php nested :TagbarOpen
 
@@ -123,7 +123,7 @@ endfunction
 function! PhpSyntaxOverride()
     hi! def link phpDocTags  phpDefine
     hi! def link phpDocParam phpType
-    :call tagbar#autoopen(0)
+    ":call tagbar#autoopen(0)
 endfunction
 
 augroup phpSyntaxOverride
@@ -155,7 +155,7 @@ set wildignore+=*.stats
 
 "Tagbar setting
 "--------------
-nmap <F8> :TagbarToggle<CR>
+"nmap <F8> :TagbarToggle<CR>
 
 "re-map emmet-key
 "----------------
@@ -260,7 +260,7 @@ inoremap <right> <nop>
 "plugin(s) configuration(s)
 "--------------------------
 let NERDTreeIgnore=['\.o$', '\.pyc$']   "filter file(s) that shown at nerdtree
-let g:nerdtree_tabs_open_on_console_startup=1
+"let g:nerdtree_tabs_open_on_console_startup=1
 
 map <F3> :NERDTreeToggle<CR>
 
