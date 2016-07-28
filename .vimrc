@@ -245,17 +245,17 @@ map <c-l> <c-w>l
 
 "disable arrow key(s) in normal mode
 "-----------------------------------
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+"nnoremap <up> <nop>
+"nnoremap <down> <nop>
+"nnoremap <left> <nop>
+"nnoremap <right> <nop>
 
 "disable arrow key(s) in insert mode
 "-----------------------------------
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 "plugin(s) configuration(s)
 "--------------------------
