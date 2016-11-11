@@ -1,5 +1,6 @@
 set nocompatible                "enable system-wide vimrc support from user(s) .vimrc
 set backspace=indent,eol,start  "enable backspace function
+set clipboard=unnamed
 syntax on                       "enable syntax highlighting
 filetype off                    "required
 
@@ -12,15 +13,13 @@ call vundle#begin()
 "--------------
 Plugin 'gmarik/Vundle.vim'
 
+"Plugin Window swap
+"----------------------------------------------
+Plugin 'wesQ3/vim-windowswap'
+
 "php indent
 "-----------
 Plugin '2072/PHP-Indenting-for-VIm'
-
-"vim-airline
-"Lean & mean status/tabline for vim that's light as air.
-"-------------------------------------------------------
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 
 "fugitive
 "Git wrapper so awesome, it should be illegal
@@ -69,27 +68,17 @@ Plugin 'mattn/emmet-vim'
 
 "color scheme(s)
 "---------------
-Plugin 'nanotech/jellybeans.vim'
-
-"adding nginx syntax highlight
-"-----------------------------
-Plugin 'evanmiller/nginx-vim-syntax'
-
-"css3 syntax highlight
-"---------------------
-Plugin 'hail2u/vim-css3-syntax'
-
-"twig
-"-----------------------
-Plugin 'evidens/vim-twig'
-
-"symfony
-"----------------------
-Plugin 'docteurklein/vim-symfony'
+"Plugin 'nanotech/jellybeans.vim'
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'flazz/vim-colorschemes'
+Plugin 'altercation/vim-colors-solarized'
 
 "command-t
 "----------------------
 Plugin 'wincent/command-t'
+let g:CommandTFileScanner="ruby"
+let g:CommandTWildIgnore="*/cache/*"
+let g:CommandTMaxHeight=50
 
 "autoformat
 "----------
@@ -99,18 +88,13 @@ Plugin 'Chiel92/vim-autoformat'
 "-------
 Plugin 'stanangeloff/php.vim'
 
-"Tagbar
-"--------
-"Plugin 'majutsushi/tagbar'
+" Twig
+"---------
+Plugin 'evidens/vim-twig'
 
 call vundle#end()               "required
 filetype plugin indent on       "required
-
-"vim autostart
-"-------------
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-"autocmd BufEnter * nested :call tagbar#autoopen(1)
-"autocmd FileType php nested :TagbarOpen
+set omnifunc=syntaxcomplete#Complete
 
 "function(s)
 "-----------
@@ -123,7 +107,6 @@ endfunction
 function! PhpSyntaxOverride()
     hi! def link phpDocTags  phpDefine
     hi! def link phpDocParam phpType
-    ":call tagbar#autoopen(0)
 endfunction
 
 augroup phpSyntaxOverride
@@ -134,8 +117,11 @@ augroup END
 "visual configuration(s)
 "-----------------------
 set background=dark
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme solarized
 set t_Co=256                    "enable 256-color vim support
+"let g:solarized_visibility="high"
+"let g:solarized_contrast="high"
 
 set laststatus=2                "show last status for vim-airline plugin
 set nowrap                      "disable text-wrapping
@@ -152,10 +138,6 @@ set wildignore+=*.luac
 set wildignore+=*.jar
 set wildignore+=*.pyc
 set wildignore+=*.stats
-
-"Tagbar setting
-"--------------
-"nmap <F8> :TagbarToggle<CR>
 
 "re-map emmet-key
 "----------------
@@ -232,9 +214,8 @@ map tp  :tabp<CR>
 
 "copy/cut/paste into/from clipboard
 "----------------------------------
-map <leader>x +x
-map <leader>y +y
-map <leader>p +p
+vnoremap <C-c> "+y
+map <C-p> "+p
 
 "moving windows cursor focus
 "---------------------------
@@ -261,6 +242,7 @@ map <c-l> <c-w>l
 "--------------------------
 let NERDTreeIgnore=['\.o$', '\.pyc$']   "filter file(s) that shown at nerdtree
 "let g:nerdtree_tabs_open_on_console_startup=1
+let g:NERDTreeWinSize=45
 
 map <F3> :NERDTreeToggle<CR>
 
@@ -271,7 +253,8 @@ if has("gui_running")
     set guioptions+=e
     set t_Co=256
     set guitablabel=%M\ %t
-    set guifont=Monaco\ 10
+    set guifont=Inconsolata\ 16,Medium\ 16
+    let g:nerdtree_tabs_open_on_gui_startup = 0
 endif
 
 "highlight search
@@ -280,14 +263,5 @@ noremap <F4> :set hlsearch! hlsearch?<CR>
 
 "ruler 81
 "----------------------------
-highlight ColorColumn ctermbg=gray ctermfg=black
-let &colorcolumn="80,".join(range(120,999),",")
-
-"vim-airline setting
-"enable powerline font
-"---------------------------------
-let g:airline_powerline_fonts=1
-"theme setting
-"-----------------
-let g:airline_theme='jellybeans'
-
+"highlight ColorColumn ctermbg=gray ctermfg=black
+"let &colorcolumn="80,".join(range(120,999),",")
