@@ -6,95 +6,131 @@ filetype off                    "required
 
 "vundle configuration
 "--------------------
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
 "plugin manager
 "--------------
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 "Plugin Window swap
 "----------------------------------------------
-Plugin 'wesQ3/vim-windowswap'
+Plug 'wesQ3/vim-windowswap'
 
 "php indent
 "-----------
-Plugin '2072/PHP-Indenting-for-VIm'
+Plug '2072/PHP-Indenting-for-VIm'
 
 "fugitive
 "Git wrapper so awesome, it should be illegal
 "--------------------------------------------
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 "file browser
 "------------
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 
 "comment/uncomment
 "-----------------
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 "multiple cursor
 "---------------
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 "surround
 "---------
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 "Trailling whitespace
 "------------------
-Plugin 'ntpeters/vim-better-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 
 "automatic closing bracket(s), parenthesis(es), quote(s)
 "-------------------------------------------------------
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 
 "autocomplete youcompleteme
 "--------------------------
-Plugin 'Valloric/YouCompleteMe'
+if !has('nvim')
+    Plug 'Valloric/YouCompleteMe'
+endif
 
 "snipmate plugins
 "----------------
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
 "vim zen coding style
 "--------------------
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 "color scheme(s)
 "---------------
-"Plugin 'nanotech/jellybeans.vim'
-"Plugin 'flazz/vim-colorschemes'
-"Plugin 'flazz/vim-colorschemes'
-Plugin 'altercation/vim-colors-solarized'
+"Plug 'nanotech/jellybeans.vim'
+"Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
+Plug 'altercation/vim-colors-solarized'
+let g:solarized_contrast  =   "high"
+let g:solarized_visibility=   "high"
+let g:solarized_bold      =   0
+let g:solarized_underline =   0
+let g:solarized_italic    =   0
 
-"command-t
+" MQL4
+" ----------------
+Plug 'vobornik/vim-mql4'
+
+""command-t
 "----------------------
-Plugin 'wincent/command-t'
-let g:CommandTFileScanner="ruby"
-let g:CommandTWildIgnore="*/cache/*"
-let g:CommandTMaxHeight=50
+if !has('nvim')
+    Plug 'wincent/command-t'
+endif
 
 "autoformat
 "----------
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 "PHP.vim
 "-------
-Plugin 'stanangeloff/php.vim'
+Plug 'stanangeloff/php.vim'
 
 " Twig
 "---------
-Plugin 'evidens/vim-twig'
+Plug 'evidens/vim-twig'
 
-call vundle#end()               "required
+" fzf
+"-------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" deoplete
+" ------------------------
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
+
+" airline
+"-------------------------
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+"call vundle#end()               "required
+call plug#end()
 filetype plugin indent on       "required
 set omnifunc=syntaxcomplete#Complete
+
+" Nvim tweak
+" ----------------------------------
+if !has('nvim')
+    set ttymouse=xterm2
+endif
+
+" ----------------------------------
 
 "function(s)
 "-----------
@@ -253,7 +289,8 @@ if has("gui_running")
     set guioptions+=e
     set t_Co=256
     set guitablabel=%M\ %t
-    set guifont=Inconsolata\ 16,Medium\ 16
+    set guifont=Inconsolata\ for\ Powerline\ 16,Medium\ 16
+    "set guifont=Liberation\ Mono\ for\ Powerline\ Regular\ 16
     let g:nerdtree_tabs_open_on_gui_startup = 0
 endif
 
@@ -265,3 +302,22 @@ noremap <F4> :set hlsearch! hlsearch?<CR>
 "----------------------------
 "highlight ColorColumn ctermbg=gray ctermfg=black
 "let &colorcolumn="80,".join(range(120,999),",")
+
+" fzf configuration
+"-------------------------------
+map <c-t> :FZF<CR>
+
+" command-t configuration
+"-------------------------------
+let g:CommandTFileScanner="ruby"
+let g:CommandTWildIgnore="*/cache/*"
+let g:CommandTMaxHeight=50
+
+" deoplete
+" ------------------------------
+let g:deoplete#enable_at_startup = 1
+
+" airline
+"--------------------------------
+let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized'
