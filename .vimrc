@@ -6,13 +6,7 @@ filetype off                    "required
 
 "vundle configuration
 "--------------------
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
 call plug#begin('~/.vim/bundle')
-
-"plugin manager
-"--------------
-Plug 'gmarik/Vundle.vim'
 
 "Plugin Window swap
 "----------------------------------------------
@@ -26,6 +20,7 @@ Plug '2072/PHP-Indenting-for-VIm'
 "Git wrapper so awesome, it should be illegal
 "--------------------------------------------
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 "file browser
 "------------
@@ -80,6 +75,7 @@ let g:solarized_visibility=   "high"
 let g:solarized_bold      =   0
 let g:solarized_underline =   0
 let g:solarized_italic    =   0
+Plug 'dsolstad/vim-wombat256i'
 
 " MQL4
 " ----------------
@@ -154,7 +150,7 @@ augroup END
 "-----------------------
 set background=dark
 "colorscheme jellybeans
-colorscheme solarized
+colorscheme wombat256i
 set t_Co=256                    "enable 256-color vim support
 "let g:solarized_visibility="high"
 "let g:solarized_contrast="high"
@@ -201,8 +197,8 @@ set autoindent      "indent new lines the same as previous one
 
 "vim tab-length exceptions
 "-------------------------
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd BufWritePre * StripWhitespace
@@ -213,9 +209,11 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 "vim syntax-highlight
 "--------------------
+au BufNewFile,BufRead *.html.twig setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.php setlocal filetype=php
 au BufNewFile,BufRead *.css setlocal filetype=css
+au BufNewFile,BufRead *.less setlocal filetype=css
 au BufNewFile,BufRead *.js setlocal filetype=javascript
 
 "vim history configuration
@@ -289,7 +287,8 @@ if has("gui_running")
     set guioptions+=e
     set t_Co=256
     set guitablabel=%M\ %t
-    set guifont=Inconsolata\ for\ Powerline\ 16,Medium\ 16
+    set guifont=Monaco\ for\ Powerline\ 10
+    "set guifont=Inconsolata\ for\ Powerline\ 16,Medium\ 16
     "set guifont=Liberation\ Mono\ for\ Powerline\ Regular\ 16
     let g:nerdtree_tabs_open_on_gui_startup = 0
 endif
@@ -320,4 +319,8 @@ let g:deoplete#enable_at_startup = 1
 " airline
 "--------------------------------
 let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
+let g:airline_theme='wombat'
+
+" nvim setting
+"-------------------------------
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
