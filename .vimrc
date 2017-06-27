@@ -16,6 +16,10 @@ Plug 'wesQ3/vim-windowswap'
 "-----------
 Plug '2072/PHP-Indenting-for-VIm'
 
+" Javascript indent
+" ------------
+Plug 'vim-scripts/JavaScript-Indent'
+
 "fugitive
 "Git wrapper so awesome, it should be illegal
 "--------------------------------------------
@@ -64,6 +68,9 @@ Plug 'honza/vim-snippets'
 "--------------------
 Plug 'mattn/emmet-vim'
 
+Plug 'evanmiller/nginx-vim-syntax'
+Plug 'jelera/vim-javascript-syntax'
+
 "color scheme(s)
 "---------------
 "Plug 'nanotech/jellybeans.vim'
@@ -76,6 +83,7 @@ let g:solarized_bold      =   0
 let g:solarized_underline =   0
 let g:solarized_italic    =   0
 Plug 'dsolstad/vim-wombat256i'
+
 
 " MQL4
 " ----------------
@@ -151,6 +159,7 @@ augroup END
 set background=dark
 "colorscheme jellybeans
 colorscheme wombat256i
+"colorscheme solarized
 set t_Co=256                    "enable 256-color vim support
 "let g:solarized_visibility="high"
 "let g:solarized_contrast="high"
@@ -200,6 +209,7 @@ set autoindent      "indent new lines the same as previous one
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd BufWritePre * StripWhitespace
 
@@ -320,6 +330,7 @@ let g:deoplete#enable_at_startup = 1
 "--------------------------------
 let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
+"let g:airline_theme='solarized'
 
 " nvim setting
 "-------------------------------
