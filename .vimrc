@@ -123,6 +123,10 @@ endif
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Vim Gradle
+" -------------------------
+Plug 'tfnico/vim-gradle'
+
 "call vundle#end()               "required
 call plug#end()
 filetype plugin indent on       "required
@@ -334,4 +338,4 @@ let g:airline_theme='wombat'
 
 " nvim setting
 "-------------------------------
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
