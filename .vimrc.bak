@@ -1,0 +1,362 @@
+set nocompatible                "enable system-wide vimrc support from user(s) .vimrc
+set backspace=indent,eol,start  "enable backspace function
+set clipboard=unnamed
+set encoding=utf-8
+syntax on                       "enable syntax highlighting
+filetype off                    "required
+
+"vundle configuration
+"--------------------
+call plug#begin('~/.vim/bundle')
+
+"Plugin Window swap
+"----------------------------------------------
+"
+Plug 'wesQ3/vim-windowswap'
+
+"php indent
+"-----------
+Plug '2072/PHP-Indenting-for-VIm'
+
+" Javascript indent
+" ------------
+Plug 'vim-scripts/JavaScript-Indent'
+
+"fugitive
+"Git wrapper so awesome, it should be illegal
+"--------------------------------------------
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+"file browser
+"------------
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+
+"comment/uncomment
+"-----------------
+Plug 'scrooloose/nerdcommenter'
+
+"multiple cursor
+"---------------
+Plug 'terryma/vim-multiple-cursors'
+
+"surround
+"---------
+Plug 'tpope/vim-surround'
+
+"Trailling whitespace
+"------------------
+Plug 'ntpeters/vim-better-whitespace'
+
+"automatic closing bracket(s), parenthesis(es), quote(s)
+"-------------------------------------------------------
+Plug 'Raimondi/delimitMate'
+
+"autocomplete youcompleteme
+"--------------------------
+if !has('nvim')
+    Plug 'Valloric/YouCompleteMe'
+endif
+
+"snipmate plugins
+"----------------
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+"vim zen coding style
+"--------------------
+Plug 'mattn/emmet-vim'
+
+Plug 'evanmiller/nginx-vim-syntax'
+Plug 'jelera/vim-javascript-syntax'
+
+"color scheme(s)
+"---------------
+"Plug 'nanotech/jellybeans.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'altercation/vim-colors-solarized'
+"let g:solarized_contrast  =   "high"
+"let g:solarized_visibility=   "high"
+"let g:solarized_bold      =   1
+"let g:solarized_underline =   1
+"let g:solarized_italic    =   1
+Plug 'dsolstad/vim-wombat256i'
+Plug 'NLKNguyen/papercolor-theme'
+
+" MQL4
+" ----------------
+Plug 'vobornik/vim-mql4'
+
+""command-t
+"----------------------
+if !has('nvim')
+    Plug 'wincent/command-t'
+endif
+
+"autoformat
+"----------
+Plug 'Chiel92/vim-autoformat'
+
+"PHP.vim
+"-------
+Plug 'stanangeloff/php.vim'
+
+" Twig
+"---------
+Plug 'evidens/vim-twig'
+
+" fzf
+"-------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" deoplete
+" ------------------------
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
+
+" airline
+"-------------------------
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+
+" Vim Gradle
+" -------------------------
+Plug 'tfnico/vim-gradle'
+
+"call vundle#end()               "required
+call plug#end()
+filetype plugin indent on       "required
+set omnifunc=syntaxcomplete#Complete
+
+" Nvim tweak
+" ----------------------------------
+if !has('nvim')
+    set ttymouse=xterm2
+endif
+
+" ----------------------------------
+
+"function(s)
+"-----------
+function! MakeDirIfNotExists(path)
+    if !isdirectory(expand(a:path))
+        call mkdir(expand(a:path), "p")
+    endif
+endfunction
+
+function! PhpSyntaxOverride()
+    hi! def link phpDocTags  phpDefine
+    hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+    autocmd!
+    autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+"visual configuration(s)
+"-----------------------
+set background=dark
+"set background=light
+"colorscheme jellybeans
+"colorscheme wombat256i
+"colorscheme solarized
+colorscheme PaperColor
+set t_Co=256                    "enable 256-color vim support
+"let g:solarized_visibility="high"
+"let g:solarized_contrast="high"
+"
+" airline
+"--------------------------------
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='wombat'
+"let g:airline_theme='solarized'
+"let g:airline_theme='papercolor'
+"let g:Powerline_symbols="fancy"
+
+" vim-one
+"-------------------------------
+"if (has("nvim"))
+""For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"endif
+""For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+""Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+"" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+"if (has("termguicolors"))
+"set termguicolors
+"endif
+
+
+set laststatus=2                "show last status for vim-airline plugin
+set nowrap                      "disable text-wrapping
+set number                      "show line number
+set numberwidth=4               "line number column width is 4 space(s)
+set showmatch                   "highlight matching bracket(s) / parenthesis(es)
+set wildmenu                    "show file(s) available for edit above command-block"
+
+"hide file with these extension(s)
+"---------------------------------
+set wildignore+=*.sw?
+set wildignore+=*.bak,*.~
+set wildignore+=*.luac
+set wildignore+=*.jar
+set wildignore+=*.pyc
+set wildignore+=*.stats
+
+"re-map emmet-key
+"----------------
+let g:user_emmet_leader_key='<C-A>'
+"re-map the vim <leader> key
+"---------------------------
+let mapleader=","
+let g:mapleader=","
+
+"re-map snippet key
+"-------------------
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
+"filetype plugin on  "enable file detection and load its plugin file
+"filetype indent on  "enable file detection and load its indent file
+
+"vim tab configuration
+"---------------------
+set tabstop=4       "4 space(s) in a single tab
+set softtabstop=4   "make backspace delete 4 space(s) at once
+set shiftwidth=4    "use with < and > for block indenting"
+set expandtab       "use space(s) instead of tab(s)
+set autoindent      "indent new lines the same as previous one
+
+"vim tab-length exceptions
+"-------------------------
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufWritePre * StripWhitespace
+
+"php autocomplete extended
+"=========================
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+"vim syntax-highlight
+"--------------------
+au BufNewFile,BufRead *.html.twig setlocal filetype=htmldjango
+au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+au BufNewFile,BufRead *.php setlocal filetype=php
+au BufNewFile,BufRead *.css setlocal filetype=css
+au BufNewFile,BufRead *.less setlocal filetype=css
+au BufNewFile,BufRead *.js setlocal filetype=javascript
+
+"vim history configuration
+"-------------------------
+set backup                              "set nobackup files
+set noswapfile                          "set no swap(*.~) file
+set history=1000                        "set larger undo/redo memory
+set undofile                            "set persistent history
+set undoreload=1000                     "save the whole buffers for undo when reloading
+set backupdir=$HOME/.vim/tmp/backup/    "set backup storage directory
+set undodir=$HOME/.vim/tmp/undo/        "set history storage directory
+
+"make the dir(s) if it isn't exists
+"----------------------------------
+silent! call MakeDirIfNotExists(&backupdir)
+silent! call MakeDirIfNotExists(&undodir)
+
+"vim searching configuration(s)
+"------------------------------
+set ignorecase  "searching with non case-sensitve approach
+set incsearch   "highlight matches while searching
+set smartcase   "search smarter way
+
+"reload vimrc when its saved
+"---------------------------
+autocmd! BufWritePost ~/.vimrc source ~/.vimrc
+
+"key-map for tab(s) navigation
+"-----------------------------
+map tn  :tabn<CR>
+map tp  :tabp<CR>
+
+"copy/cut/paste into/from clipboard
+"----------------------------------
+vnoremap <C-c> "+y
+map <C-p> "+p
+
+"moving windows cursor focus
+"---------------------------
+map <c-h> <c-w>h
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+
+"disable arrow key(s) in normal mode
+"-----------------------------------
+"nnoremap <up> <nop>
+"nnoremap <down> <nop>
+"nnoremap <left> <nop>
+"nnoremap <right> <nop>
+
+"disable arrow key(s) in insert mode
+"-----------------------------------
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
+
+"plugin(s) configuration(s)
+"--------------------------
+let NERDTreeIgnore=['\.o$', '\.pyc$']   "filter file(s) that shown at nerdtree
+"let g:nerdtree_tabs_open_on_console_startup=1
+let g:NERDTreeWinSize=45
+
+map <F3> :NERDTreeToggle<CR>
+
+"configuration running gvim
+"--------------------------
+if has("gui_running")
+    set guioptions-=T
+    set guioptions+=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+    set guifont=Monaco\ for\ Powerline\ 10
+    "set guifont=Inconsolata\ for\ Powerline\ 16,Medium\ 16
+    "set guifont=Liberation\ Mono\ for\ Powerline\ Regular\ 16
+    let g:nerdtree_tabs_open_on_gui_startup = 0
+endif
+
+"highlight search
+"--------------------
+noremap <F4> :set hlsearch! hlsearch?<CR>
+
+"ruler 81
+"----------------------------
+"highlight ColorColumn ctermbg=gray ctermfg=black
+"let &colorcolumn="80,".join(range(120,999),",")
+
+" fzf configuration
+"-------------------------------
+map <c-t> :FZF<CR>
+
+" command-t configuration
+"-------------------------------
+let g:CommandTFileScanner="ruby"
+let g:CommandTWildIgnore="*/cache/*"
+let g:CommandTMaxHeight=50
+
+" deoplete
+" ------------------------------
+let g:deoplete#enable_at_startup = 1
+
+
+" nvim setting
+"-------------------------------
+set guicursor=
+
