@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdcommenter'
 
 " Colorscheme
 Plug 'flazz/vim-colorschemes'
+Plug 'joshdick/onedark.vim'
 
 " Deoplete
 if has('nvim')
@@ -19,7 +20,7 @@ endif
 " Emmet
 Plug 'mattn/emmet-vim'
 
-" FZF 
+" FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " GIT Fugitive & Gutter
@@ -39,22 +40,25 @@ Plug 'jistr/vim-nerdtree-tabs'
 " Snippet
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-"Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Neosnippet
 Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
+" Auto pairs
+Plug 'jiangmiao/auto-pairs'
+
 " Syntax highlighting
-Plug 'evanmiller/nginx-vim-syntax'
+Plug 'vim-scripts/nginx.vim'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'nelsyeung/twig.vim'
 Plug 'othree/es.next.syntax.vim'
 
-" Syntastic
-Plug 'scrooloose/syntastic'
+" Ale
+Plug 'w0rp/ale'
 
 " Tagbar
 Plug 'majutsushi/tagbar'
@@ -64,6 +68,16 @@ Plug 'wesQ3/vim-windowswap'
 
 " YAJS
 Plug 'othree/yajs.vim'
+
+" Editor Config
+Plug 'vim-scripts/PreserveNoEOL'
+Plug 'editorconfig/editorconfig-vim'
+
+" Trailling Whitespace
+Plug 'ntpeters/vim-better-whitespace'
+
+" Easy Motion
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -88,10 +102,6 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -99,7 +109,7 @@ command W w !sudo tee % > /dev/null
 set so=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -119,7 +129,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -131,23 +141,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -180,7 +190,7 @@ set guicursor=
 set background=dark
 
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
@@ -188,10 +198,8 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme busierbee
-    hi Normal ctermbg=none
-    hi NonText ctermbg=none
-    hi FoldColumn ctermbg=none
+    let g:onedark_terminal_italics=1
+    colorscheme onedark
 catch
 endtry
 
@@ -271,15 +279,15 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+"map <leader>l :bnext<cr>
+"map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 map tn  :tabn<CR>
 map tp  :tabp<CR>
@@ -297,7 +305,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -347,7 +355,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.php :call CleanExtraSpaces()
 endif
 
 " FZF
@@ -430,7 +438,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -479,21 +487,88 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-
-""""""""""""""""""""""""""""""
-" => Syntastic plugin
-""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 """"""""""""""""""""""""""""""
 " => Deoplete Go plugin
 """"""""""""""""""""""""""""""
 let g:deoplete#sources#go#gocode_binary='/home/otten/go/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
+""""""""""""""""""""""""""""""
+" => EditorConfig plugin
+""""""""""""""""""""""""""""""
+let g:EditorConfig_exec_path = '/usr/bin/editorconfig'
+let g:PreserveNoEOL = 1
+
+""""""""""""""""""""""""""""""
+" => Ale plugin
+""""""""""""""""""""""""""""""
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+nmap <silent> <C-[> <Plug>(ale_previous_wrap)
+nmap <silent> <C-]> <Plug>(ale_next_wrap)
+
+" Better Whitespace
+autocmd BufEnter * EnableStripWhitespaceOnSave
+
+" One Dark Pro
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+    if (has("nvim"))
+         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+        set termguicolors
+    endif
+endif
+
+" Airline
+let g:airline#extensions#ale#enabled = 1
+let g:airline_theme='onedark'
+let g:airline_powerline_fonts = 1
+
+" Easy Motion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+au BufRead /tmp/psql.edit.* set syntax=sql
