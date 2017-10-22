@@ -385,6 +385,7 @@ map <leader>x :e ~/buffer.md<cr>
 map <leader>pp :setlocal paste!<cr>
 
 " Copy / Paste from Clipboard
+set clipboard=unnamedplus
 map <C-p> "+p
 vnoremap <C-c> "+y
 
