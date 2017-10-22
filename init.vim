@@ -1,1 +1,1 @@
-/home/otten/.vimrc
+.vimrc

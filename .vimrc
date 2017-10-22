@@ -10,6 +10,7 @@ Plug 'scrooloose/nerdcommenter'
 " Colorscheme
 Plug 'flazz/vim-colorschemes'
 Plug 'joshdick/onedark.vim'
+Plug 'tomasr/molokai'
 
 " Deoplete
 if has('nvim')
@@ -22,6 +23,7 @@ Plug 'mattn/emmet-vim'
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " GIT Fugitive & Gutter
 Plug 'tpope/vim-fugitive'
@@ -70,7 +72,6 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'othree/yajs.vim'
 
 " Editor Config
-Plug 'vim-scripts/PreserveNoEOL'
 Plug 'editorconfig/editorconfig-vim'
 
 " Trailling Whitespace
@@ -198,8 +199,9 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    let g:onedark_terminal_italics=1
-    colorscheme onedark
+    let g:molokai_original = 1
+    let g:rehash256 = 1
+    colorscheme molokai
 catch
 endtry
 
@@ -245,7 +247,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+set nowrap "Wrap lines
 
 
 """"""""""""""""""""""""""""""
@@ -332,34 +334,18 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.php :call CleanExtraSpaces()
-endif
-
 " FZF
+let g:fzf_layout = { 'down': '~70%' }
 map <c-t> :FZF<CR>
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " NerdTree
 map <F3> :NERDTreeToggle<CR>
@@ -502,7 +488,6 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 " => EditorConfig plugin
 """"""""""""""""""""""""""""""
 let g:EditorConfig_exec_path = '/usr/bin/editorconfig'
-let g:PreserveNoEOL = 1
 
 """"""""""""""""""""""""""""""
 " => Ale plugin
@@ -536,7 +521,7 @@ endif
 
 " Airline
 let g:airline#extensions#ale#enabled = 1
-let g:airline_theme='onedark'
+let g:airline_theme='molokai'
 let g:airline_powerline_fonts = 1
 
 " Easy Motion
